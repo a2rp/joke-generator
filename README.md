@@ -1,3 +1,6 @@
+![image](https://github.com/a2rp/joke-generator/assets/5670738/a6d172b3-476e-4ecc-adbe-776d46b307c0)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
