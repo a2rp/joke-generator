@@ -1,0 +1,98 @@
+.header {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    left: 0;
+    border-bottom: 1px solid rgba(25, 38, 64, 0.12);
+    background: rgba(248, 250, 255, 0.95);
+    box-shadow: 0 8px 24px rgba(39, 54, 88, 0.08);
+    backdrop-filter: blur(14px);
+    transition: transform 220ms ease;
+}
+
+.visible { transform: translateY(0); }
+.hidden { transform: translateY(-100%); }
+
+.inner {
+    display: flex;
+    width: min(1160px, calc(100% - 32px));
+    min-height: 74px;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+}
+
+.brand {
+    display: inline-flex;
+    min-width: max-content;
+    align-items: center;
+    gap: 10px;
+    color: #18243d;
+    text-decoration: none;
+}
+
+.brand img { width: 40px; height: 40px; object-fit: contain; }
+.brand span { display: grid; gap: 2px; }
+.brand strong { font-size: 0.96rem; }
+.brand small { color: #76839b; font-size: 0.7rem; }
+
+.navigation { display: flex; align-items: center; gap: 22px; }
+.navigation a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #53627d;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 180ms ease, text-shadow 180ms ease;
+}
+
+.navigation a:hover,
+.navigation a:focus-visible {
+    color: #6956d9;
+    text-shadow: 0 2px 9px rgba(105, 86, 217, 0.22);
+}
+
+.menuButton {
+    display: none;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid #d8ddec;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #6956d9;
+}
+
+.menuButton svg { width: 20px; height: 20px; }
+
+@media (max-width: 700px) {
+    .inner { min-height: 66px; }
+    .menuButton { display: inline-flex; align-items: center; justify-content: center; }
+    .navigation {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 16px;
+        left: 16px;
+        display: none;
+        padding: 8px;
+        border: 1px solid #d8ddec;
+        border-radius: 12px;
+        background: #ffffff;
+        box-shadow: 0 14px 30px rgba(39, 54, 88, 0.14);
+    }
+    .navigation.open { display: grid; }
+    .navigation a { padding: 11px; border-radius: 8px; }
+    .navigation a:hover,
+    .navigation a:focus-visible { border: 1px solid #ddd9f6; }
+}
+
+@media (max-width: 420px) {
+    .inner { width: min(100% - 20px, 1160px); }
+    .brand img { width: 34px; height: 34px; }
+    .brand strong { font-size: 0.84rem; }
+    .brand small { display: none; }
+}

@@ -1,0 +1,11 @@
+.footer { margin-top: 44px; border-top: 1px solid #e0e2ee; background: #f1f2fb; }
+.inner { display: flex; width: min(1160px, calc(100% - 32px)); min-height: 86px; margin: 0 auto; align-items: center; justify-content: space-between; gap: 20px; }
+.brand { display: inline-flex; align-items: center; gap: 8px; color: #5f6c86; font-size: 0.76rem; font-weight: 700; }
+.brand img { width: 30px; height: 30px; object-fit: contain; }
+.links { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; }
+.links a { display: inline-flex; width: 32px; height: 32px; align-items: center; justify-content: center; border: 1px solid #d4d8e8; border-radius: 8px; color: #66738c; transition: border-color 180ms ease, box-shadow 180ms ease, text-shadow 180ms ease; }
+.links a:hover, .links a:focus-visible { border-color: #6956d9; box-shadow: 0 5px 14px rgba(105, 86, 217, 0.16); color: #6956d9; text-shadow: 0 2px 8px rgba(105, 86, 217, 0.2); }
+.links svg { width: 15px; height: 15px; }
+.copyright { margin: 0; color: #74809a; font-size: 0.74rem; text-align: right; }
+.copyright a { color: #6956d9; font-weight: 700; }
+@media (max-width: 900px) { .inner { padding: 20px 0; flex-wrap: wrap; justify-content: center; } .copyright { width: 100%; text-align: center; } }
