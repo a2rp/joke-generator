@@ -18,7 +18,7 @@ A responsive React playground for finding a single joke through the JokeAPI serv
 - Create React App
 - Material UI
 - Sass modules
-- Axios and React Icons
+- Fetch API and React Icons
 
 ## Run locally
 

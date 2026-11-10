@@ -17,8 +17,7 @@ function JokesGenerator() {
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const generateJoke = async () => {
         setOutput({});
         setError("");
         setIsLoading(true);
@@ -28,23 +27,37 @@ function JokesGenerator() {
         if (language !== "en") params.set("lang", language);
         if (searchString.trim()) params.set("contains", searchString.trim());
 
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(() => controller.abort(), 15000);
+
         try {
-            const response = await fetch(`https://v2.jokeapi.dev/joke/${category}?${params.toString()}`);
-            const data = await response.json();
-            if (!response.ok || data.error) {
-                const message = data.message || "No joke matched those settings.";
+            const response = await fetch(
+                `https://v2.jokeapi.dev/joke/${category}?${params.toString()}`,
+                { signal: controller.signal },
+            );
+            const data = await response.json().catch(() => null);
+            if (!response.ok || !data || data.error || typeof data.joke !== "string") {
+                const message = data?.message || "No joke matched those settings. Try another filter combination.";
                 setError(message);
                 toast.error(message);
                 return;
             }
             setOutput(data);
         } catch (requestError) {
-            const message = requestError.message || "The joke service could not be reached. Please try again.";
+            const message = requestError.name === "AbortError"
+                ? "The request timed out. Please try again."
+                : "The joke service could not be reached. Check your connection and try again.";
             setError(message);
             toast.error(message);
         } finally {
+            window.clearTimeout(timeoutId);
             setIsLoading(false);
         }
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        generateJoke();
     };
 
     const copyJoke = async () => {
@@ -104,7 +117,7 @@ function JokesGenerator() {
                             <blockquote>{output.joke}</blockquote>
                             <div className={styles.resultActions}>
                                 <button type="button" onClick={copyJoke}><FiCopy aria-hidden="true" /> Copy joke</button>
-                                <button type="button" onClick={handleSubmit}><FiRefreshCw aria-hidden="true" /> Try again</button>
+                                <button type="button" onClick={generateJoke}><FiRefreshCw aria-hidden="true" /> Try again</button>
                             </div>
                             <details className={styles.rawResponse}><summary>View API response</summary><pre>{JSON.stringify(output, null, 2)}</pre></details>
                         </>
